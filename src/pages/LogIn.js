@@ -25,7 +25,8 @@ const LogInForm = styled(Form)`
   align-items: center;
   min-width: 300px;
   width: 400px;
-  height: 300px;
+  height: auto;
+  padding: 20px 0;
 `;
 
 const LogInTitle = styled.h3`
@@ -61,6 +62,14 @@ const LogInBtn = styled(Btn)`
   }
 `;
 
+const Error = styled(ErrorMessage)`
+  color: red;
+  font-size: 0.9rem;
+
+  width: 80%;
+  margin: 5px auto;
+`;
+
 function LogIn() {
   return (
     <LogInContainer>
@@ -69,11 +78,14 @@ function LogIn() {
         validate={(values) => {
           const errors = {};
           if (!values.email) {
-            errors.email = "Required";
+            errors.email = "This field is required";
           } else if (
             !/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i.test(values.email)
           ) {
             errors.email = "Invalid email address";
+          }
+          if (!values.password) {
+            errors.password = "This field is required";
           }
           return errors;
         }}
@@ -93,15 +105,16 @@ function LogIn() {
             type="email"
             name="email"
             placeholder="Enter your e-mail"
+            autoFocus
           />
-          <ErrorMessage name="email" component="div" />
+          <Error name="email" component="div" />
           <Label htmlFor="password">Password</Label>
           <LogInInput
             type="password"
             name="password"
             placeholder="Enter your password"
           />
-
+          <Error name="password" component="div" />
           <LogInBtn>Send</LogInBtn>
         </LogInForm>
 

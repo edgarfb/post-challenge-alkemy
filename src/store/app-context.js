@@ -5,6 +5,10 @@ const AppContext = React.createContext(null);
 export function AppContextProvider(props) {
   const [posts, setPosts] = React.useState([]);
 
+  function removePost(id) {
+    setPosts(posts.filter((post) => post.id !== id));
+  }
+
   React.useEffect(() => {
     fetch("https://jsonplaceholder.typicode.com/posts")
       .then((response) => response.json())
@@ -12,7 +16,7 @@ export function AppContextProvider(props) {
   }, []);
 
   return (
-    <AppContext.Provider value={{ posts }}>
+    <AppContext.Provider value={{ posts, removePost }}>
       {props.children}
     </AppContext.Provider>
   );

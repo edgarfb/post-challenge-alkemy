@@ -6,12 +6,13 @@ import Post from "../components/post";
 function Home() {
   const app = React.useContext(AppContext);
   const posts = app.posts;
-  console.log("post", posts);
 
   return (
     <div>
       {posts.map((post) => (
-        <Post key={post.id}>{post.title}</Post>
+        <Post key={post.id} id={post.id}>
+          {post.title}
+        </Post>
       ))}
     </div>
   );

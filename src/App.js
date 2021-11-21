@@ -41,6 +41,9 @@ function App() {
 
           {isLoggedIn && <Route path="/post-create" element={<PostCreate />} />}
           {isLoggedIn && <Route path="/post-edit" element={<PostEdit />} />}
+          {isLoggedIn && (
+            <Route path="/post-edit/:postID" element={<PostEdit />} />
+          )}
           {!isLoggedIn && <Route path="/login" element={<LogIn />} />}
           {/* {isLoggedIn && <Route path="/login" element={<LogIn />} />} */}
           {/* {!isLoggedIn && (

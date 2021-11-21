@@ -20,6 +20,7 @@ export function AppContextProvider(props) {
 export default AppContext;
 
 // practice with useReducer
+// practice with useReducer
 
 // const counter = (state, action) => {
 //   if (action.type === "INCREMENT") {

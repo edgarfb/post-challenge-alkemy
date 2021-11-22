@@ -1,18 +1,13 @@
 import React from "react";
 import styled from "styled-components";
-
-const Form = styled.form``;
-
-const Input = styled.input``;
-
-const Label = styled.label``;
+import FormCustom from "../components/FormCustom";
 
 function PostCreate() {
   return (
-    <Form>
-      <Label htmlFor="title">Title</Label>
-      <Input placeholder="title"></Input>
-    </Form>
+    <div>
+      <h2>New Post</h2>
+      <FormCustom httpMethod="post" />
+    </div>
   );
 }
 

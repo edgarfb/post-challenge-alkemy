@@ -1,12 +1,27 @@
+import axios from "axios";
 import React from "react";
 
 const AppContext = React.createContext(null);
 
 export function AppContextProvider(props) {
   const [posts, setPosts] = React.useState([]);
+  const [post, setPost] = React.useState({});
 
   function removePost(id) {
     setPosts(posts.filter((post) => post.id !== id));
+  }
+
+  function getPost(postID) {
+    axios
+      .get(`https://jsonplaceholder.typicode.com/posts/${postID}`)
+      .then((res) => {
+        setPost(res.data);
+        return post;
+        console.log("post from axios with async/await", post);
+      })
+      .catch((err) => {
+        console.log("error", err);
+      });
   }
 
   React.useEffect(() => {
@@ -16,7 +31,7 @@ export function AppContextProvider(props) {
   }, []);
 
   return (
-    <AppContext.Provider value={{ posts, removePost }}>
+    <AppContext.Provider value={{ posts, removePost, getPost }}>
       {props.children}
     </AppContext.Provider>
   );

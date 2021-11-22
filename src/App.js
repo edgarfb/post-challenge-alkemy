@@ -17,6 +17,7 @@ import {
 } from "react-router-dom";
 
 import "./App.css";
+import Modal from "./components/Modal";
 
 const AppContainer = styled.div`
   width: 100%;
@@ -36,6 +37,7 @@ function App() {
     <AppContainer>
       <Router>
         <NavBar />
+
         <Routes>
           {isLoggedIn && <Route path="/" element={<Home />} exact></Route>}
 
@@ -44,12 +46,15 @@ function App() {
           {isLoggedIn && (
             <Route path="/post-edit/:postID" element={<PostEdit />} />
           )}
+          {/* This is an option to send to Not found page */}
+          {/* {isLoggedIn && <Route path="/not-found" element={<NotFound />} />} */}
+          {isLoggedIn && (
+            <Route path="*" element={<Navigate replace to="/" />} />
+          )}
           {!isLoggedIn && <Route path="/login" element={<LogIn />} />}
-          {/* {isLoggedIn && <Route path="/login" element={<LogIn />} />} */}
-          {/* {!isLoggedIn && (
-          <Route path="*" element={<Navigate replace to="login" />} />
-        )} */}
-          {/* {isLoggedIn && <Route path="*" element={<NotFound />} />} */}
+          {!isLoggedIn && (
+            <Route path="*" element={<Navigate replace to="/login" />} />
+          )}
         </Routes>
       </Router>
     </AppContainer>

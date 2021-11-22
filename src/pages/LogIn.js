@@ -97,7 +97,7 @@ function LogIn() {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             axios
-              .post(process.env.REACT_APP_MAURICIO_SERVER, {
+              .post("https://node-api-proxy-alkemy.herokuapp.com/", {
                 email: values.email,
                 password: values.password,
               })

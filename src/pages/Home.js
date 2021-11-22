@@ -10,7 +10,7 @@ function Home() {
   return (
     <div>
       {posts.map((post) => (
-        <Post key={post.id} id={post.id}>
+        <Post key={post.id.toString()} id={post.id}>
           {post.title}
         </Post>
       ))}

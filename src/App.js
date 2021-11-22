@@ -54,11 +54,11 @@ function App() {
           {isLoggedIn && (
             <Route path="/post-edit/:postID" element={<PostEdit />} />
           )}
-          {/* This is an option to send to Not found page */}
-          {/* {isLoggedIn && <Route path="/not-found" element={<NotFound />} />} */}
           {isLoggedIn && (
             <Route path="*" element={<Navigate replace to="/" />} />
           )}
+          {/* This is an option to send to Not found page */}
+          {/* {isLoggedIn && <Route path="/not-found" element={<NotFound />} />} */}
           {!isLoggedIn && <Route path="/login" element={<LogIn />} />}
           {!isLoggedIn && (
             <Route path="*" element={<Navigate replace to="/login" />} />

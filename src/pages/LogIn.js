@@ -103,7 +103,6 @@ function LogIn() {
               })
               .then((res) => {
                 if (res.status === 200) {
-                  console.log("res", res.data.token);
                   localStorage.setItem("userPostToken", res.data.token);
                   loginCtx.setTokenInLocalStorage(
                     localStorage.getItem("userPostToken")
@@ -111,8 +110,6 @@ function LogIn() {
                   // this works ---- I need to redirect to the home page and save the token in a state to share it with the other pages
                   console.log("Logged in successfully");
                   navigate("/");
-                } else {
-                  console.error(res.error);
                 }
               })
               .catch((err) => {

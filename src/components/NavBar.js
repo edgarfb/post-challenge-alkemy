@@ -36,11 +36,11 @@ function NavBar() {
                 New Post
               </Link>
             </li>
-            <li className="nav-item">
+            {/* <li className="nav-item">
               <Link className="nav-link" to="/post-edit">
                 Edit Post
               </Link>
-            </li>
+            </li> */}
             {isLoggedIn && (
               <li className="nav-iten">
                 <button className="btn btn-success" onClick={logOutHandler}>

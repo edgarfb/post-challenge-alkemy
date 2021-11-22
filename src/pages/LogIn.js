@@ -97,7 +97,7 @@ function LogIn() {
         onSubmit={(values, { setSubmitting }) => {
           setTimeout(() => {
             axios
-              .post(process.env.REACT_APP_BASE_URL_FREE_CORS, {
+              .post(process.env.REACT_APP_MAURICIO_SERVER, {
                 email: values.email,
                 password: values.password,
               })

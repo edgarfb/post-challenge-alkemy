@@ -1,55 +1,62 @@
 import React from "react";
+import ReactDom from "react-dom";
+import styled from "styled-components";
+import AppContext from "../store/app-context";
 
-function Modal() {
+const Backdrop = styled.div`
+  position: fixed;
+  z-index: 1;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+  background-color: rgba(0, 0, 0, 0.5);
+`;
+
+const ModalContainer = styled.div`
+  background-color: #fff;
+  min-width: 300px;
+  width: 400px;
+  border-radius: 5px;
+  border: 1px solid #ced4da;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  padding: 20px;
+  margin: 10px;
+  margin-bottom: 30px;
+`;
+
+const Title = styled.h4`
+  font-size: 1.5rem;
+  text-align: center;
+  margin-bottom: 40px;
+`;
+const BtnContainer = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+`;
+
+function Modal(props) {
+  const appCtx = React.useContext(AppContext);
   return (
     <React.Fragment>
-      <button
-        type="button"
-        class="btn btn-primary"
-        data-bs-toggle="modal"
-        data-bs-target="#staticBackdrop"
-      >
-        Launch static backdrop modal
-      </button>
-
-      <div
-        class="modal fade"
-        id="staticBackdrop"
-        data-bs-backdrop="static"
-        data-bs-keyboard="false"
-        tabindex="-1"
-        aria-labelledby="staticBackdropLabel"
-        aria-hidden="true"
-      >
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title" id="staticBackdropLabel">
-                Modal title
-              </h5>
-              <button
-                type="button"
-                class="btn-close"
-                data-bs-dismiss="modal"
-                aria-label="Close"
-              ></button>
-            </div>
-            <div class="modal-body">...</div>
-            <div class="modal-footer">
-              <button
-                type="button"
-                class="btn btn-secondary"
-                data-bs-dismiss="modal"
-              >
-                Close
+      {ReactDom.createPortal(
+        <Backdrop>
+          <ModalContainer>
+            <Title>{props.message}</Title>
+            <BtnContainer>
+              <button className="btn btn-success" onClick={appCtx.closeModal}>
+                ok
               </button>
-              <button type="button" class="btn btn-primary">
-                Understood
-              </button>
-            </div>
-          </div>
-        </div>
-      </div>
+            </BtnContainer>
+          </ModalContainer>
+        </Backdrop>,
+        document.getElementById("modal")
+      )}
     </React.Fragment>
   );
 }

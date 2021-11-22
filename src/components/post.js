@@ -23,9 +23,7 @@ function Post(props) {
     <PostContainer {...props}>
       <H2>{props.children}</H2>
 
-      <Btn onClick={() => alert("This need to redirect to details pages")}>
-        Details
-      </Btn>
+      <Btn onClick={() => navigate(`/post-details/${props.id}`)}>Details</Btn>
       <Btn onClick={() => navigate(`/post-edit/${props.id}`)}>Edit</Btn>
       <Btn onClick={() => appCtx.removePost(props.id)}>Remove</Btn>
 

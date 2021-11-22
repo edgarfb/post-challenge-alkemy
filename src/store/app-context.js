@@ -6,9 +6,28 @@ const AppContext = React.createContext(null);
 export function AppContextProvider(props) {
   const [posts, setPosts] = React.useState([]);
   const [post, setPost] = React.useState({});
+  const [showModal, setShowModal] = React.useState(false);
+  const [modalMessage, setModalMessage] = React.useState("");
 
   function removePost(id) {
-    setPosts(posts.filter((post) => post.id !== id));
+    axios
+      .delete(`https://jsonplaceholder.typicode.com/posts/${id}`)
+      .then((res) => {
+        fireModal("Post deleted successfully!");
+        setPosts(posts.filter((post) => post.id !== id));
+      })
+      .catch((err) => {
+        alert("Something went wrong: ", err);
+      });
+  }
+
+  function fireModal(message) {
+    setShowModal(true);
+    setModalMessage(message);
+  }
+
+  function closeModal() {
+    setShowModal(false);
   }
 
   function getPost(postID) {
@@ -31,36 +50,19 @@ export function AppContextProvider(props) {
   }, []);
 
   return (
-    <AppContext.Provider value={{ posts, removePost, getPost }}>
+    <AppContext.Provider
+      value={{
+        posts,
+        removePost,
+        getPost,
+        fireModal,
+        closeModal,
+        showModal,
+        modalMessage,
+      }}
+    >
       {props.children}
     </AppContext.Provider>
   );
 }
 export default AppContext;
-
-// practice with useReducer
-// practice with useReducer
-
-// const counter = (state, action) => {
-//   if (action.type === "INCREMENT") {
-//     return { count: state.count + 1 };
-//   }
-//   if (action.type === "DECREMENT") {
-//     return { count: state.count - 1 };
-//   }
-//   return state;
-// };
-
-// const TestingUseReducer = () => {
-//   const initialState = { count: 0 };
-//   const [state, dispatch] = React.useReducer(counter, initialState);
-
-//   console.log("state from useReducer", state);
-//   return (
-//     <React.Fragment>
-//       <h1>usereducer State = {state.count}</h1>
-//       <button onClick={() => dispatch({ type: "INCREMENT" })}>+</button>
-//       <button onClick={() => dispatch({ type: "DECREMENT" })}>-</button>
-//     </React.Fragment>
-//   );
-// };

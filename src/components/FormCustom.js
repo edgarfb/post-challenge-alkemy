@@ -2,9 +2,13 @@ import React from "react";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import Btn from "./btn";
 import axios from "axios";
+import AppContext from "../store/app-context";
+import { useNavigate } from "react-router-dom";
 
 function FormCustom(props) {
-  console.log("propsTitle", props.title);
+  const appCtx = React.useContext(AppContext);
+  const navigate = useNavigate();
+  console.log("appCtx", appCtx);
   return (
     <Formik
       initialValues={{ title: props.title || "", body: props.body || "" }}
@@ -32,10 +36,11 @@ function FormCustom(props) {
                 values,
               })
               .then((res) => {
-                console.log(res);
+                appCtx.fireModal("Post was created successfully!");
+                navigate("/");
               })
               .catch((err) => {
-                console.log(err);
+                console.log("Something went wrong: ", err);
               });
         }
         {
@@ -45,10 +50,11 @@ function FormCustom(props) {
                 values,
               })
               .then((res) => {
-                console.log(res);
+                appCtx.fireModal("Post was edited successfully!");
+                navigate("/");
               })
               .catch((err) => {
-                console.log(err.message);
+                appCtx.fireModal(`Something went wrong: ${err.message}`);
               });
         }
         resetForm();
@@ -97,9 +103,6 @@ function FormCustom(props) {
             >
               Submit
             </button>
-            {/* <div>
-              <Btn type="submit">Submit</Btn>
-            </div> */}
           </Form>
         );
       }}

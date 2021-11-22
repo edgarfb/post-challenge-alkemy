@@ -1,14 +1,4 @@
 import React from "react";
-import styled from "styled-components";
-import Home from "./pages/Home";
-// context
-import LogInContext from "./store/login-context";
-import NavBar from "./components/NavBar";
-import PostCreate from "./pages/PostCreate";
-import PostEdit from "./pages/PostEdit";
-import NotFound from "./pages/NotFound";
-import Post from "./components/post";
-import LogIn from "./pages/LogIn";
 import {
   BrowserRouter as Router,
   Routes,
@@ -16,8 +6,20 @@ import {
   Navigate,
 } from "react-router-dom";
 
-import "./App.css";
+import styled from "styled-components";
+// Componets routes
+import Home from "./pages/Home";
+import PostCreate from "./pages/PostCreate";
+import PostEdit from "./pages/PostEdit";
+import PostDetails from "./pages/PostDetails";
+import NotFound from "./pages/NotFound";
+import LogIn from "./pages/LogIn";
+// components
+import NavBar from "./components/NavBar";
 import Modal from "./components/Modal";
+// context
+import LogInContext from "./store/login-context";
+import AppContext from "./store/app-context";
 
 const AppContainer = styled.div`
   width: 100%;
@@ -31,16 +33,22 @@ const AppContainer = styled.div`
 function App() {
   const loginCtx = React.useContext(LogInContext);
   const isLoggedIn = loginCtx.isLoggedIn;
+  const appCtx = React.useContext(AppContext);
 
   console.log("is logged in", loginCtx);
   return (
     <AppContainer>
       <Router>
         <NavBar />
-
+        {appCtx.showModal && <Modal message={appCtx.modalMessage} />}
         <Routes>
           {isLoggedIn && <Route path="/" element={<Home />} exact></Route>}
-
+          {isLoggedIn && (
+            <Route
+              path="/post-details/:postID"
+              element={<PostDetails />}
+            ></Route>
+          )}
           {isLoggedIn && <Route path="/post-create" element={<PostCreate />} />}
           {isLoggedIn && <Route path="/post-edit" element={<PostEdit />} />}
           {isLoggedIn && (
